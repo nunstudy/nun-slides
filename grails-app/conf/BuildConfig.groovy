@@ -22,18 +22,11 @@ grails.project.dependency.resolution = {
         grailsCentral()
         mavenCentral()
 
-        // uncomment these to enable remote dependency resolution from public Maven repositories
-        //mavenCentral()
-        //mavenLocal()
-        //mavenRepo "http://snapshots.repository.codehaus.org"
-        //mavenRepo "http://repository.codehaus.org"
-        //mavenRepo "http://download.java.net/maven/2/"
-        //mavenRepo "http://repository.jboss.com/maven2/"
     }
     dependencies {
         // specify dependencies here under either 'build', 'compile', 'runtime', 'test' or 'provided' scopes eg.
 
-        // runtime 'mysql:mysql-connector-java:5.1.16'
+		runtime 'net.sourceforge.jtds:jtds:1.2.4'
     }
 
     plugins {
@@ -47,5 +40,10 @@ grails.project.dependency.resolution = {
         //runtime ":yui-minify-resources:0.1.4"
 
         build ":tomcat:$grailsVersion"
+
+		compile ":spring-security-core:1.2.7.2"
+		compile ":spring-security-ldap:1.0.5.1"
+		compile ":spring-security-mock:1.0.1"
+		compile ":spring-security-shibboleth-native-sp:1.0.3"
     }
 }
