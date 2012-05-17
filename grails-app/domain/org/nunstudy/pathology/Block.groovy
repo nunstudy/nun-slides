@@ -3,19 +3,18 @@ package org.nunstudy.pathology
 class Block {
 
 	String code
-	Nun nun
 	BlockArea blockArea
 	SubArea subArea
 	String areaOtherText
-	Boolean lesion
-	Boolean infarction
-	Boolean missing
-	Boolean demented
-	String slideSourceId
+	Boolean lesion = false
+	Boolean infarction = false
+	Boolean missing = false
+	Boolean demented = false
+	Integer slideSourceId
 	Hemisphere hemisphere
 	String label
 
-	Date deleted
+	Date dateDeleted
 	Date dateCreated = new Date()
 	String userCreated
 	String appCreated = 'nun-slides'
@@ -23,7 +22,10 @@ class Block {
 	String userUpdated
 	String appUpdated
 
-
+	static belongsTo = [ nun: Nun  ]
+		
+	static hasMany = [ stains: Stain ]
+	
     static constraints = {
 		code(nullable:true)
 		nun()
@@ -38,7 +40,7 @@ class Block {
 		hemisphere(nullable: true)
 		label()
 
-		deleted(nullable: true)
+		dateDeleted(nullable: true)
 		dateCreated()
 		userCreated(maxSize: 16)
 		appCreated(maxSize: 50)
@@ -47,22 +49,23 @@ class Block {
 		appUpdated(nullable: true, maxSize: 50)
     }
 	static mapping = {
+		table 'blocks'
 		version false
-		id column:'BlockID'
+		id column:'BlockID', type: 'long', sqlType: 'int'
 
 		code column:'BlockCode'
-		nun column:'NunID'
-		blockArea column:'BlockAreaID'
-		subArea column:'SubAreaID'
+		nun column:'NunID', type: 'long', sqlType: 'int'
+		blockArea column:'BlockAreaID', type: 'long', sqlType: 'int'
+		subArea column:'SubAreaID', type: 'string', sqlType: 'varchar'
 		areaOtherText column:'AreaOtherText'
 		lesion column:'Lesion'
 		infarction column:'Infarction'
 		missing column:'Missing'
 		demented column:'Demented'
-		slideSourceId column:'SlideSourceID'
-		hemisphere column:'Hemisphere'
+		slideSourceId column:'SlideSourceID', type: 'long', sqlType: 'int'
+		hemisphere column:'Hemisphere', type: 'string', sqlType: 'char'
 		label column:'BlockLabel'
-		deleted column:'DeleteDate'
+		dateDeleted column:'DeleteDate'
 		dateCreated column:'CreateDate'
 		userCreated column:'CreateUser'
 		appCreated column:'CreateApp'

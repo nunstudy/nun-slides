@@ -14,6 +14,8 @@ class BlockArea {
 	String userUpdated
 	String appUpdated
 
+	String toString() { description }
+	
 	static constraints = {
 		description(maxSize:50)
 		abbreviation(maxSize:8)
@@ -29,13 +31,14 @@ class BlockArea {
 	}
 
 	static mapping = {
+		table 'block_areas'
 		version false
-		id column:'BlockAreaID'
+		id column:'BlockAreaID', type: 'long', sqlType: 'int'
 
 		description column:'BlockAreaDesc'
 		abbreviation column:'BlockAreaAbbrev'
 		allowHemisphere column:'AllowHemisphere'
-		childOfArea column:'ChildOfAreaID'
+		childOfArea column:'ChildOfAreaID', type: 'long', sqlType: 'int'
 		dateCreated column:'CreateDate'
 		userCreated column:'CreateUser'
 		appCreated column:'CreateApp'
