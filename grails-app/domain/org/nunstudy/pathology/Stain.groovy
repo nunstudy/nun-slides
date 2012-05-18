@@ -18,9 +18,9 @@ class Stain {
 	String userUpdated
 
 	static belongsTo = [ block: Block ]
-	
-	static hasMany = [ aperioScannedSlides: AperioScannedSlide ]
-		
+
+	String toString() { type }
+			
     static constraints = {
 		stainCode()
 		type()
@@ -58,4 +58,13 @@ class Stain {
 		userUpdated column:'UpdateUser'
 	}
 
+	static transients = [ 'scannedToAperio' ]
+	
+	def getScannedToAperio() {
+		def aperioScannedSlideInstance = AperioScannedSlide.findByStain(this)
+		if (aperioScannedSlideInstance) {
+			return true
+		}
+		return false
+	}
 }

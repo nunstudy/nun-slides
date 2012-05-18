@@ -1,7 +1,7 @@
 <!doctype html>
 <html>
 	<head>
-		<meta name="layout" content="main"/>
+		<meta name="layout" content="umn"/>
 		<title>Welcome to Grails</title>
 		<style type="text/css" media="screen">
 			#status {
@@ -79,9 +79,10 @@
 				}
 			}
 		</style>
+		<r:require module="raphael" />
+		<r:require module="nunSlides" />
 	</head>
 	<body>
-		<a href="#page-body" class="skip"><g:message code="default.link.skip.label" default="Skip to content&hellip;"/></a>
 		<div id="status" role="complementary">
 			<h1>Application Status</h1>
 			<ul>
@@ -116,6 +117,21 @@
 						<li class="controller"><g:link controller="${c.logicalPropertyName}">${c.fullName}</g:link></li>
 					</g:each>
 				</ul>
+			</div>
+			
+			<g:if test="${flash.message}">
+				<div class="message" role="status">${flash.message}</div>
+			</g:if>
+			<div id="infoMessage" class="message" role="status"></div>
+			
+			<g:form name="searchForm" method="post" controller="nunId" action="find" >			
+				<div id="search">
+					Find Subject: <g:textField name="id" value="" />
+				</div>
+			</g:form>
+			<div>
+			<div id="canvas" ></div>
+			
 			</div>
 		</div>
 	</body>

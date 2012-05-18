@@ -9,7 +9,7 @@ class Nun {
 	Date dateSecProc
 	
 	static hasMany = [ blocks: Block ]
-	
+
     static constraints = {
 		lastName()
 		firstName nullable: true

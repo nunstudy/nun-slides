@@ -1,6 +1,7 @@
 package org.nunstudy.pathology
 
 class Hemisphere {
+	String id
 	Integer code
 	String name
 		
@@ -14,7 +15,7 @@ class Hemisphere {
 	static mapping = {
 		table 'hemisphere_decode'
 		version false
-		id column:'Hemisphere', type: 'string', sqlType: 'char'
+		id generator:'assigned', column:'Hemisphere', type: 'string', sqlType: 'char'
 
 		code column:'HemisphereCode', type: 'int', sqlType: 'tinyint'
 		name column:'HemisphereName'

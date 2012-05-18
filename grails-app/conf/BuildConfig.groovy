@@ -21,6 +21,8 @@ grails.project.dependency.resolution = {
         grailsHome()
         grailsCentral()
         mavenCentral()
+		grailsRepo "http://svn.cccs.umn.edu/grails-plugins"
+		mavenRepo "http://artifact.ncs.umn.edu/plugins-release"
 
     }
     dependencies {
@@ -33,17 +35,19 @@ grails.project.dependency.resolution = {
         runtime ":hibernate:$grailsVersion"
         runtime ":jquery:1.7.1"
         runtime ":resources:1.1.6"
-
-        // Uncomment these (or add new ones) to enable additional resources capabilities
-        //runtime ":zipped-resources:1.0"
-        //runtime ":cached-resources:1.0"
+        runtime ":zipped-resources:1.0"
+        runtime ":cached-resources:1.0"
+		runtime ":raphael:2.0.2"
         //runtime ":yui-minify-resources:0.1.4"
 
         build ":tomcat:$grailsVersion"
 
-		compile ":spring-security-core:1.2.7.2"
+		build ":spock:0.6-SNAPSHOT"
+		compile ":umn-web-template:0.2.3"
+		compile ":spring-security-core:1.2.7.9"
 		compile ":spring-security-ldap:1.0.5.1"
 		compile ":spring-security-mock:1.0.1"
 		compile ":spring-security-shibboleth-native-sp:1.0.3"
+		compile ":cache-headers:1.0.4"
     }
 }

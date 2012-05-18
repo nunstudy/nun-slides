@@ -26,6 +26,8 @@ class Block {
 		
 	static hasMany = [ stains: Stain ]
 	
+	String toString() { "${label}: ${hemisphere}, ${blockArea}" }
+	
     static constraints = {
 		code(nullable:true)
 		nun()
@@ -62,7 +64,7 @@ class Block {
 		infarction column:'Infarction'
 		missing column:'Missing'
 		demented column:'Demented'
-		slideSourceId column:'SlideSourceID', type: 'long', sqlType: 'int'
+		slideSourceId column:'SlideSourceID', type: 'int', sqlType: 'int'
 		hemisphere column:'Hemisphere', type: 'string', sqlType: 'char'
 		label column:'BlockLabel'
 		dateDeleted column:'DeleteDate'
