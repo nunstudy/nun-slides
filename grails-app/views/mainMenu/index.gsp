@@ -80,7 +80,6 @@
 			}
 		</style>
 		<r:require module="raphael" />
-		<r:require module="nunSlides" />
 	</head>
 	<body>
 		<div id="status" role="complementary">
@@ -126,7 +125,7 @@
 			
 			<g:form name="searchForm" method="post" controller="nunId" action="find" >			
 				<div id="search">
-					Find Subject: <g:textField name="id" value="" />
+					<g:textField class="searchBox" name="id" title="Search by Aperio or Autopsy ID" value="Search by Aperio or Autopsy ID" />
 				</div>
 			</g:form>
 			<div>

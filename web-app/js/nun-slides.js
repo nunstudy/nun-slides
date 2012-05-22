@@ -19,8 +19,25 @@ $(document).ready(function() {
 		drawCircle();		
 	}
 	
-	$("#id").focus();
+	//$("#id").focus();
+	// Clear text of search box when user clicks in it
+	$("#id").focus(function() {
+		if (this.value == this.title) {
+			$(this).val('');			
+		}
+	});
 		
+	$(".blockHeader").click(function() {
+		$(this).next().toggle('fast');
+		if ($(this).hasClass("open")) {
+			$(this).removeClass("open");
+			$(this).addClass("closed");			
+		} else {
+			$(this).removeClass("closed");
+			$(this).addClass("open");						
+		}
+		return false;
+	}).next().hide();
 });
 
 function drawCircle() {

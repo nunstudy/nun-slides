@@ -8,11 +8,13 @@ input {
 .nav {
 	background-color: #efefef;
 	/*padding: 0.5em 0.75em;*/
-	padding: 0.2em 0.75em;
+	padding: 0.2em 0;
 	   -moz-box-shadow: 0 0 3px 1px #aaaaaa;
 	-webkit-box-shadow: 0 0 3px 1px #aaaaaa;
 	        box-shadow: 0 0 3px 1px #aaaaaa;
 	zoom: 1;
+	float:left;
+	width: 100%;
 }
 
 .nav ul {
@@ -74,24 +76,81 @@ input {
 	background-image: url(../images/skin/database_add.png);
 }
 
+.navLeft {
+	padding-left: 1.0em;
+	float: left;
+	width: 50%;
+}
+.navRight {
+	padding-right: 1.0em;
+	text-align: right;
+	color: #666666;
+	float: right;
+	width: 40%;
+	font-weight: bold;
+}
+.navRight .searchButton {
+	width: 4.0em;
+}
 /* BUTTONS */
 .buttons {
 	padding: 0.3em 0;
 	margin: 0.5em 0;
 }
 
+/* SEARCH */
+.searchBox {
+	margin-top: 0.2em;
+	padding: 0 0.2em;
+	-moz-border-radius: 0.3em;
+	-webkit-border-radius: 0.3em;
+	border-radius: 0.3em;
+	font-weight:normal;
+	color:#666;
+	width: 15.0em;
+}
 /* SIGNED IN STATUS */
 .status {
     color: #a1a1a1;
     font-size: .85em;
     padding: 0.5em;
 }
-
+/* SUBJECT */
+.subjectInfo {
+	border: 1px solid #ccc;
+	padding: 1.0em 0;
+	margin: 0.5em 0;;
+	float:left;
+	width:100%;
+}
 /* BLOCKS AND SLIDES */
+.blocks {
+	float:left;
+	width:100%;
+}
+.blockHeader {
+	padding-left: 2.0em;
+	float:left;
+	width:100%;
+}
+.open {
+	background: url(../images/skin/maroon-dropdown-arrow-active20x20.png) center left no-repeat;	
+}
+.closed {
+	background: url(../images/skin/maroon-dropdown-arrow20x20.png) center left no-repeat;	
+}
+.blockHeader:hover {
+	cursor: pointer;
+}
+
+.blockInfo {
+	border: 1px dotted #ccc;
+}
+
 .stainRow {
 	padding: 0.4em 2.0em;
 }
-.scanned em {
+.stainRow em {
 	margin-left:1.0em;
 	padding-left: 2.0em;
 	background: url(../images/skin/aperio-small.png) center left no-repeat;	

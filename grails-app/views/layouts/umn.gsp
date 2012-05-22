@@ -31,6 +31,7 @@
         </style>
         <![endif]-->
         
+		<r:require module="nunSlides" />
 		<g:layoutHead/>
         <r:layoutResources />
     </head>
