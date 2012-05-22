@@ -34,18 +34,13 @@
 			</ul>
 			</g:hasErrors>
 			<div class="subjectInfo" >
-				<h2>Blocks for Autopsy ID: <strong>${nunIdInstance?.autopId}</strong>  | Aperio ID: <strong>${nunIdInstance?.aperioId}</strong></h2>
+				<h2><u><strong>Blocks</strong></u> for Autopsy ID: <strong>${nunIdInstance?.autopId}</strong>  | Aperio ID: <strong>${nunIdInstance?.aperioId}</strong></h2>
 			</div>
-			<g:form method="post" >
-				<g:hiddenField name="id" value="${nunIdInstance?.id}" />
-				<fieldset class="form">
-					<g:render template="form"/>
-				</fieldset>
-				<fieldset class="buttons">
-					<g:actionSubmit class="save" action="update" value="${message(code: 'default.button.update.label', default: 'Update')}" />
-					<g:actionSubmit class="delete" action="delete" value="${message(code: 'default.button.delete.label', default: 'Delete')}" formnovalidate="" onclick="return confirm('${message(code: 'default.button.delete.confirm.message', default: 'Are you sure?')}');" />
-				</fieldset>
-			</g:form>
+			<div class="blockContainer">
+				<g:render template="form"/>
+			</div>
+			<div class="bottomBumper"></div>
+			
 		</div>
 	</body>
 </html>

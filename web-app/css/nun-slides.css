@@ -117,7 +117,8 @@ input {
 }
 /* SUBJECT */
 .subjectInfo {
-	border: 1px solid #ccc;
+	/*border: 1px solid #ccc;*/
+	background: url(../images/skin/title-bkgrd_10x50.png) center center repeat-x;	
 	padding: 1.0em 0;
 	margin: 0.5em 0;;
 	float:left;
@@ -128,10 +129,20 @@ input {
 	float:left;
 	width:100%;
 }
+.blockRow {
+	padding: 0.3em 0;
+	float:left;
+	width:100%;
+	min-width:100%;
+}
 .blockHeader {
 	padding-left: 2.0em;
 	float:left;
 	width:100%;
+	min-width:100%;
+}
+.blockHeader h3 {
+	white-space: nowrap;
 }
 .open {
 	background: url(../images/skin/maroon-dropdown-arrow-active20x20.png) center left no-repeat;	
@@ -144,14 +155,24 @@ input {
 }
 
 .blockInfo {
-	border: 1px dotted #ccc;
+	/*border: 1px dotted #ccc;*/
+	float:left;
+	width:100%;
 }
 
 .stainRow {
 	padding: 0.4em 2.0em;
+	width:100%;
 }
 .stainRow em {
 	margin-left:1.0em;
 	padding-left: 2.0em;
 	background: url(../images/skin/aperio-small.png) center left no-repeat;	
+}
+.showAll {
+	float:left;
+	padding: 0.5em;
+}
+.bottomBumper {
+	margin-bottom: 1.0em;
 }

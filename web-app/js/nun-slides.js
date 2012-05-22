@@ -38,6 +38,29 @@ $(document).ready(function() {
 		}
 		return false;
 	}).next().hide();
+	
+	$(".showAll").click(function() {
+		// Open all block divs
+		if ($(this).attr('title') == 'Show All') {
+			$(".blockHeader").each(function() {
+				$(this).removeClass("closed");
+				$(this).addClass("open");										
+				$(this).next().show('fast');
+			});
+			$(this).attr('title', 'Close All');
+			$(this).html('Close All');
+		} else {
+			// Close all block divs
+			$(".blockHeader").each(function() {
+				$(this).removeClass("open");
+				$(this).addClass("closed");										
+				$(this).next().hide('fast');
+			});
+			$(this).attr('title', 'Show All');
+			$(this).html('Show All');
+		}
+	});
+	
 });
 
 function drawCircle() {
