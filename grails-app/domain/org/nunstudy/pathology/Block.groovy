@@ -55,7 +55,7 @@ class Block {
 		version false
 		id column:'BlockID', type: 'long', sqlType: 'int'
 
-		code column:'BlockCode'
+		code column:'BlockCode', insertable: false, updateable: false
 		nun column:'NunID', type: 'long', sqlType: 'int'
 		blockArea column:'BlockAreaID', type: 'long', sqlType: 'int'
 		subArea column:'SubAreaID', type: 'string', sqlType: 'varchar'

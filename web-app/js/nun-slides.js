@@ -39,29 +39,99 @@ $(document).ready(function() {
 		return false;
 	}).next().hide();
 	
+	// Show all block divs
 	$(".showAll").click(function() {
-		// Open all block divs
-		if ($(this).attr('title') == 'Show All') {
-			$(".blockHeader").each(function() {
-				$(this).removeClass("closed");
-				$(this).addClass("open");										
-				$(this).next().show('fast');
-			});
-			$(this).attr('title', 'Close All');
-			$(this).html('Close All');
-		} else {
-			// Close all block divs
-			$(".blockHeader").each(function() {
-				$(this).removeClass("open");
-				$(this).addClass("closed");										
-				$(this).next().hide('fast');
-			});
-			$(this).attr('title', 'Show All');
-			$(this).html('Show All');
+		$(".blockHeader").each(function() {
+			$(this).removeClass("closed");
+			$(this).addClass("open");										
+			$(this).next().show('fast');
+		});
+	});
+
+	// Hide all block divs
+	$(".hideAll").click(function() {
+		$(".blockHeader").each(function() {
+			$(this).removeClass("open");
+			$(this).addClass("closed");										
+			$(this).next().hide('fast');
+		});
+	});
+	
+	// Setup block edit form dialog 
+	$("#blockEditFormDialog").dialog({
+		autoOpen: false,
+		height: 350,
+		width: 380,
+		modal: true		
+	});
+	
+	// Open block edit form dialog 
+	$("a[id*='blockEditFormOpenLink_']").click(function() {
+		 $('body').css('overflow','hidden');
+		$("#blockEditFormDialog").dialog("open");
+		if (debug) {
+			$('#infoMessage').html("Dialog opened");
 		}
 	});
 	
+	// Close block edit form dialog 
+    $("#blockEditFormCancelBtn").click(function() {
+    	$('body').css('overflow','scroll');
+		$("#blockEditFormDialog").dialog("close");  
+		return false;
+    });
+    
+    $('.ui-button').hover(function() {
+    	$(this).addClass('ui-state-hover');
+    },
+    function(){
+    	$(this).removeClass('ui-state-hover');    	    
+    });
+    
+    // Zebra stripe block row divs
+    $(".blockRow:odd").addClass('odd');
+        
 });
+
+function showBlockEditForm() {
+	$('body').css('overflow','hidden');
+	$("#blockEditFormDialog").dialog("open");	
+}
+
+function closeBlockEditForm() {
+	$('body').css('overflow','scroll');
+	$("#blockEditFormDialog").dialog("close");	
+}
+
+function showHideBlockInfo(e) {
+	if (debug){
+		alert('Clicked on element::' + e);		
+	}
+	if ($(e).hasClass("open")) {
+		$(e).removeClass("open");
+		$(e).addClass("closed");			
+		$(e).next().hide('fast');			
+	} else {
+		$(e).removeClass("closed");
+		$(e).addClass("open");						
+		$(e).next().show('fast');			
+	}
+	return false;	
+}
+
+function getElementIdx(elementId) {
+	/**
+	 * Evaluates an element id string,
+	 * searches for the first underscore and
+	 * returns any characters after the
+	 * underscore.
+	 */
+	var start = elementId.indexOf('_') + 1;
+	if (start >= 0) {
+		return elementId.substring(start);		
+	}
+	return null;
+}
 
 function drawCircle() {
 	// Creates canvas 320 × 200 at 10, 50

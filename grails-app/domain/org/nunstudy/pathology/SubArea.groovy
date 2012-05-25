@@ -5,6 +5,8 @@ class SubArea implements Serializable {
 	String description
 	String synonym
 	
+	String toString() { description }
+	
     static constraints = {
 		description()
 		synonym nullable: true

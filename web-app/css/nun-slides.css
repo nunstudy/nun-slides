@@ -144,6 +144,12 @@ input {
 .blockHeader h3 {
 	white-space: nowrap;
 }
+.blockEdit label {
+	padding: 0.3em 1.0em 0.3em 0;
+}
+.fieldcontain {
+	padding-bottom: 0.5em;
+}
 .open {
 	background: url(../images/skin/maroon-dropdown-arrow-active20x20.png) center left no-repeat;	
 }
@@ -159,7 +165,22 @@ input {
 	float:left;
 	width:100%;
 }
-
+.blockInfo li {
+	display: block;
+	float: left;
+	list-style-type: none;
+	margin-right: 0.5em;
+	padding: 0.3em 1.0em;
+}
+span.editBlock {
+	float:left;
+	width: 100%;
+	padding: 0.5em;
+}
+.stainInfo {
+	float:left;
+	width:100%;
+}
 .stainRow {
 	padding: 0.4em 2.0em;
 	width:100%;
@@ -169,10 +190,56 @@ input {
 	padding-left: 2.0em;
 	background: url(../images/skin/aperio-small.png) center left no-repeat;	
 }
-.showAll {
+.showHideBar {
+	border-bottom: 2px solid #7a001e;
+	padding-bottom: 0.5em;
+}
+.showAll .hideAll {
 	float:left;
 	padding: 0.5em;
 }
 .bottomBumper {
 	margin-bottom: 1.0em;
+	border-bottom: 2px solid #7a001e;
+}
+.dialogButtons input:hover {
+	border: 1px solid #fbcb09;
+	background: #fdf5ce url(../images/skin/ui-bg_glass_100_fdf5ce_1x400.png) 50% 50% repeat-x;
+	font-weight: bold;
+	color: #c77405; 
+}
+
+.ui-widget-overlay {
+    background: black;
+    filter: alpha(opacity=70);
+    opacity: .7;
+    position: fixed; /* <---------- */
+    top: 0;          /* <---------- */
+    left: 0;         /* <---------- */
+}
+/* SCAN STATUS */
+.status {
+	color: #000;
+	outline: #ccc dotted thin;
+}
+.noData {
+    background: #999;	
+}
+.done {
+    background: #66ff66;	
+}
+.started {
+    background: #ff9966;	
+}
+.todo {
+    background: #ff3366;	
+}
+.subjectRow:hover {
+	background: black;
+    filter: alpha(opacity=80);
+    opacity: .8;
+    color: #fff;
+}
+.subjectRow:hover a {
+    color: red;
 }

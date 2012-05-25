@@ -5,6 +5,7 @@ modules = {
 	
 	nunSlides {
 		dependsOn 'jquery'
+		dependsOn 'jquery-ui'
 		resource url:'js/nun-slides.js'		
 	}
 }

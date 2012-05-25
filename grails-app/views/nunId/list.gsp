@@ -9,10 +9,16 @@
 	</head>
 	<body>
 		<div class="nav" role="navigation">
-			<ul>
-				<li><a class="home" href="${createLink(uri: '/')}"><g:message code="default.home.label"/></a></li>
-				<li><g:link class="create" action="create"><g:message code="default.new.label" args="[entityName]" /></g:link></li>
-			</ul>
+			<div class="navLeft">
+				<ul>
+					<li><a class="home" href="${createLink(uri: '/')}"><g:message code="default.home.label"/></a></li>
+				</ul>
+			</div>
+			<div class="navRight">
+				<g:form action="find">
+					 <g:textField class="searchBox" name="id" title="Search by Aperio or Autopsy ID..." value="Search by Aperio or Autopsy ID..." />
+				</g:form> 
+			</div>
 		</div>
 		<div id="list-nunId" class="content scaffold-list" role="main">
 			<h1>Subject List</h1>

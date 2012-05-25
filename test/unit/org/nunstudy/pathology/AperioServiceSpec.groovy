@@ -7,6 +7,6 @@ import grails.test.mixin.TestFor
 @TestFor(AperioService)
 class AperioServiceSpec extends UnitSpec {
 
-    def "Create object"() {
+    def "Test Time until"() {
     }
 }

@@ -26,8 +26,7 @@ class NunIdController {
 	}
 	
     def list() {
-        params.max = Math.min(params.max ? params.int('max') : 10, 100)
-        [nunIdInstanceList: NunId.list(params), nunIdInstanceTotal: NunId.count()]
+        [aperioNunInstanceList: AperioNun.list(), aperioNunInstanceTotal: AperioNun.count()]
     }
 
     def create() {
@@ -115,4 +114,5 @@ class NunIdController {
             redirect(action: "show", id: params.id)
         }
     }
+	
 }

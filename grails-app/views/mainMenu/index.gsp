@@ -128,6 +128,9 @@
 					<g:textField class="searchBox" name="id" title="Search by Aperio or Autopsy ID" value="Search by Aperio or Autopsy ID" />
 				</div>
 			</g:form>
+
+			<g:link class="list" controller="aperioNun" action="list">Subject List</g:link>
+
 			<div>
 			<div id="canvas" ></div>
 			

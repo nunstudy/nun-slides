@@ -47,6 +47,21 @@ grails.spring.bean.packages = []
 // whether to disable processing of multi part requests
 grails.web.disable.multipart=false
 
+// Spring Cache (makes lookup FAST!)
+springcache {
+	defaults {
+		// set default cache properties that will apply to all caches that do not override them
+		eternal = false
+		diskPersistent = false
+	}
+	caches {
+		aperioNunListCache {
+			// set any properties unique to this cache
+			memoryStoreEvictionPolicy = "LRU"
+		}
+	}
+}
+
 // request parameters to mask when logging exceptions
 grails.exceptionresolver.params.exclude = ['password']
 
