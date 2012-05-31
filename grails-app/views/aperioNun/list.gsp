@@ -22,14 +22,31 @@
 			</div>
 		</div>
 		
-		<div class="stats">
-			<span>Brains Not Received: ${statistics.brainsOutstanding}
-		</div>
 		<div id="list-aperioNun" class="content scaffold-list" role="main">
 			<h1>Subject List</h1>
 			<g:if test="${flash.message}">
 			<div class="message" role="status">${flash.message}</div>
 			</g:if>
+			<div class="stats">
+				<table>
+					<tr>
+						<td>Brains Not Received:</td><td>${summaryDataInstance.needBrain}</td>
+					</tr>
+					<tr>
+						<td>No Data Entered:</td><td>${summaryDataInstance.noData}</td>
+					</tr>
+					<tr>
+						<td>No Slides Scanned:</td><td>${summaryDataInstance.zeroScanned}</td>
+					</tr>
+					<tr>
+						<td>Some Slides Scanned:</td><td>${summaryDataInstance.someScanned}</td>
+					</tr>
+					<tr>
+						<td>All Slides Scanned:</td><td>${summaryDataInstance.allScanned}</td>
+					</tr>
+				</table>
+			</div>
+			<div id="subjectCount">Showing ${aperioNunInstanceTotal} subjects</div>
 			<table>
 				<thead>
 					<tr>
@@ -45,9 +62,9 @@
 					
 						<g:sortableColumn property="stains" title="${message(code: 'aperioNun.stains.label', default: 'Slides')}" />
 					
-						<g:sortableColumn property="aperio" title="${message(code: 'aperioNun.aperio.label', default: 'Aperio')}" />
+						<g:sortableColumn property="aperio" title="${message(code: 'aperioNun.aperio.label', default: 'Scanned')}" />
 
-						<g:sortableColumn property="status" title="${message(code: 'aperioNun.status.label', default: 'Status')}" />
+						<th>Status</th>
 					</tr>
 				</thead>
 				<tbody>

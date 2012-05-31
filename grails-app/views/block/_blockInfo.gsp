@@ -1,8 +1,11 @@
 
 <div id="${'block' + block.id}">
 	<div class="blockRow">
-		<div class="blockHeader closed"><h3 title="Block created on <g:formatDate date='${block.dateCreated}' format='MM/dd/yyyy h:mm a'/> by ${block.userCreated}">${block}</h3></div>
+		<div class="blockHeader closed"><h3 title="Block ${block.id} created on <g:formatDate date='${block.dateCreated}' format='MM/dd/yyyy h:mm a'/> by ${block.userCreated}">${block}</h3></div>
 		<div class="blockInfo">
+			<g:if test="${infoMessage}">
+			<div class="message" role="status">${infoMessage}</div>
+			</g:if>
 			<ul class="property-list block">
 				<g:if test="${block?.hemisphere}">
 				<li class="fieldcontain">
@@ -49,49 +52,53 @@
 				</li>
 				</g:if>
 
-				<g:if test="${blockInstance?.lesion}">
+				<g:if test="${block?.lesion}">
 				<li class="fieldcontain">
-					<span id="lesion-label" class="property-label"><g:message code="block.lesion.label" default="Lesion" /></span>
+					<span id="lesion-label" class="property-label"><g:message code="block.lesion.label" default="Lesion:" /></span>
 					
-						<span class="property-value" aria-labelledby="lesion-label"><g:formatBoolean boolean="${blockInstance?.lesion}" /></span>
+						<span class="property-value" aria-labelledby="lesion-label"><g:formatBoolean boolean="${block?.lesion}" /></span>
 					
 				</li>
 				</g:if>
 			
-				<g:if test="${blockInstance?.infarction}">
+				<g:if test="${block?.infarction}">
 				<li class="fieldcontain">
-					<span id="infarction-label" class="property-label"><g:message code="block.infarction.label" default="Infarction" /></span>
+					<span id="infarction-label" class="property-label"><g:message code="block.infarction.label" default="Infarction:" /></span>
 					
-						<span class="property-value" aria-labelledby="infarction-label"><g:formatBoolean boolean="${blockInstance?.infarction}" /></span>
+						<span class="property-value" aria-labelledby="infarction-label"><g:formatBoolean boolean="${block?.infarction}" /></span>
 					
 				</li>
 				</g:if>
 			
-				<g:if test="${blockInstance?.missing}">
+				<g:if test="${block?.missing}">
 				<li class="fieldcontain">
-					<span id="missing-label" class="property-label"><g:message code="block.missing.label" default="Missing" /></span>
+					<span id="missing-label" class="property-label"><g:message code="block.missing.label" default="Missing:" /></span>
 					
-						<span class="property-value" aria-labelledby="missing-label"><g:formatBoolean boolean="${blockInstance?.missing}" /></span>
+						<span class="property-value" aria-labelledby="missing-label"><g:formatBoolean boolean="${block?.missing}" /></span>
 					
 				</li>
 				</g:if>
 			
-				<g:if test="${blockInstance?.demented}">
+				<g:if test="${block?.demented}">
 				<li class="fieldcontain">
-					<span id="demented-label" class="property-label"><g:message code="block.demented.label" default="Demented" /></span>
+					<span id="demented-label" class="property-label"><g:message code="block.demented.label" default="Demented:" /></span>
 					
-						<span class="property-value" aria-labelledby="demented-label"><g:formatBoolean boolean="${blockInstance?.demented}" /></span>
+						<span class="property-value" aria-labelledby="demented-label"><g:formatBoolean boolean="${block?.demented}" /></span>
 					
 				</li>
 				</g:if>
 	
 			</ul>
 			
-			<span class="editBlock">
-				<g:form name="${'editBlockForm_' + block.id}">
-					<g:remoteLink controller="block" action="edit" id="${block.id}" update="blockEditForm" onSuccess="showBlockEditForm()" >Edit Block</g:remoteLink>
+			<div class="editBlock">
+				<g:form name="${'editBlockForm_' + block.id}" >
+					<span class="blockButton"><g:submitToRemote url="${[controller:'block', action:'edit', id:block.id]}" update="blockEditForm" onSuccess="showBlockEditForm()" value="Edit Block" /></span>
 				</g:form>
-			</span>
+				<g:form name="${'deleteBlockForm_' + block.id}" controller="block" >
+					<g:hiddenField name="id" value="${block.id}" />
+					<span class="blockButton"><g:actionSubmit action="delete" onclick="return confirm('Are you sure?');" value="Delete Block" /></span>
+				</g:form>
+			</div>
 			<div class="stainInfo">			
 				<h3>Stains</h3>
 				<g:each in="${block?.stains}" var="stainInstance" >			

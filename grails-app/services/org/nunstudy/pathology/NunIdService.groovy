@@ -1,5 +1,7 @@
 package org.nunstudy.pathology
 
+import org.hibernate.cache.ReadWriteCache.Item;
+
 class NunIdService {
 
     def findNunId(String searchStr) {
@@ -24,18 +26,5 @@ class NunIdService {
 		}
 		return nunIdInstance
     }
-	
-	def scanningStatistics() {
-		/**
-		 * Statistics on scanning status
-		 * of Subjects. Returns a map
-		 */
-		def results = [:]
-		def brainsOutstanding = Nun.list().size() - NunId.list().size()
-		results[brainsOutstanding] = brainsOutstanding
-		
-		
-		return results
-	}
 	
 }

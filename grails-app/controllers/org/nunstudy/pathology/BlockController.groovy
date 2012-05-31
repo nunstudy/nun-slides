@@ -17,18 +17,42 @@ class BlockController {
     }
 
     def create() {
-        [blockInstance: new Block(params)]
+		def nunInstance = Nun.read(params.id)
+		def blockInstance = new Block()
+		blockInstance.nun = nunInstance
+		blockInstance.code = "To be determined..."
+		if (debug) {
+			println "Creating new block::$blockInstance"
+		}
+ 		render(template: "form", model: [blockInstance: blockInstance, editing: false])
+       // [blockInstance: blockInstance]
     }
 
     def save() {
+		def nunInstance = Nun.get(params.nun.toLong())
+		// TODO: Update userCreated, slideSourceId and get nun instance
+		params.nun = nunInstance
+		params.userCreated = 'ast'
+		params.slideSourceId = 999999
+		if (debug) {
+			println "Attempting to create new block with params::$params"
+		}
+
         def blockInstance = new Block(params)
+		
         if (!blockInstance.save(flush: true)) {
-            render(view: "create", model: [blockInstance: blockInstance])
+			flash.message = message(code: 'default.created.message', args: [message(code: 'block.label', default: 'Block'), blockInstance.id.toString()])
+			redirect(controller: "nunId", action: "find", id: nunInstance?.id)
+            //render(view: "create", model: [blockInstance: blockInstance])
             return
         }
-
-		flash.message = message(code: 'default.created.message', args: [message(code: 'block.label', default: 'Block'), blockInstance.id])
-        redirect(action: "show", id: blockInstance.id)
+		if (nunInstance) {
+			nunInstance.addToBlocks(blockInstance)
+		}
+		
+		flash.message = message(code: 'default.created.message', args: [message(code: 'block.label', default: 'Block'), blockInstance.id.toString()])
+        //redirect(action: "show", id: blockInstance.id)
+        redirect(controller: "nunId", action: "find", id: blockInstance.nun.id)
     }
 
     def show() {
@@ -44,6 +68,9 @@ class BlockController {
 
     def edit() {
         def blockInstance = Block.get(params.id)
+		if (debug) {
+			println "Editing block::$blockInstance"
+		}
         if (!blockInstance) {
             flash.message = message(code: 'default.not.found.message', args: [message(code: 'block.label', default: 'Block'), params.id])
             redirect(action: "list")
@@ -52,16 +79,18 @@ class BlockController {
 		if (debug) {
 			println "Loading block::$blockInstance"
 		}
-		render(template: "form", model: [blockInstance: blockInstance])
+		render(template: "form", model: [blockInstance: blockInstance, editing: true])
 		
         //[blockInstance: blockInstance]
     }
 
     def update() {
         def blockInstance = Block.get(params.id)
+		def infoMessage = null
         if (!blockInstance) {
-            flash.message = message(code: 'default.not.found.message', args: [message(code: 'block.label', default: 'Block'), params.id])
-            redirect(action: "list")
+            //flash.message = message(code: 'default.not.found.message', args: [message(code: 'block.label', default: 'Block'), params.id.toString()])
+            infoMessage = message(code: 'default.not.found.message', args: [message(code: 'block.label', default: 'Block'), params.id.toString()])
+            redirect(controller:"aperioNun", action: "list")
             return
         }
 
@@ -73,31 +102,35 @@ class BlockController {
 			println "Saving block:${blockInstance.properties}"
 		}
         if (!blockInstance.save(flush: true)) {
-			render(template: "blockDetails", model: [ block: blockInstance ] )
+			render(template: "blockInfo", model: [ block: blockInstance ] )
             return
         }
 
-		flash.message = message(code: 'default.updated.message', args: [message(code: 'block.label', default: 'Block'), blockInstance.id])
-		render(template: "blockDetails", model: [ block: blockInstance ] )
+		//flash.message = message(code: 'default.updated.message', args: [message(code: 'block.label', default: 'Block'), blockInstance.id.toString()])
+		infoMessage = message(code: 'default.updated.message', args: [message(code: 'block.label', default: 'Block'), blockInstance.id.toString()])
+		render(template: "blockInfo", model: [ block: blockInstance, infoMessage: infoMessage  ] )
 		// redirect(action: "show", id: blockInstance.id)
     }
 
     def delete() {
         def blockInstance = Block.get(params.id)
+		if (debug) {
+			println "Attempting to delete block::$blockInstance"
+		}
         if (!blockInstance) {
 			flash.message = message(code: 'default.not.found.message', args: [message(code: 'block.label', default: 'Block'), params.id])
-            redirect(action: "list")
+            redirect(controller: "aperioNun", action: "list")
             return
         }
 
         try {
             blockInstance.delete(flush: true)
 			flash.message = message(code: 'default.deleted.message', args: [message(code: 'block.label', default: 'Block'), params.id])
-            redirect(action: "list")
+            redirect(controller: "nunId", action: "find", id: blockInstance.nun.id)
         }
         catch (DataIntegrityViolationException e) {
 			flash.message = message(code: 'default.not.deleted.message', args: [message(code: 'block.label', default: 'Block'), params.id])
-            redirect(action: "show", id: params.id)
+            redirect(controller: "nunId", action: "find", id: blockInstance.nun.id)
         }
     }
 }

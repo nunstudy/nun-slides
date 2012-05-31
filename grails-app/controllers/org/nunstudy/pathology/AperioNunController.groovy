@@ -1,11 +1,12 @@
 package org.nunstudy.pathology
 
 import org.springframework.dao.DataIntegrityViolationException
-import grails.plugin.springcache.annotations.Cacheable
-import grails.plugin.springcache.annotations.CacheFlush
+import grails.plugin.cache.CacheEvict
+import grails.plugin.cache.Cacheable
 
 class AperioNunController {
 	def nunIdService
+	def debug = true
 	
     static allowedMethods = [save: "POST", update: "POST", delete: "POST"]
 
@@ -13,14 +14,20 @@ class AperioNunController {
         redirect(action: "list", params: params)
     }
 
-//	@Cacheable("aperioNunListCache")
+	@Cacheable("aperioNunListCache")
     def list() {
         params.max = Math.min(params.max ? params.int('max') : 1000, 1000)
-		def statistics = nunIdService.scanningStatistics()
+		def summaryDataInstanceList = SummaryData.list()
+		def summaryDataInstance = summaryDataInstanceList[0]
 		
-        [aperioNunInstanceList: AperioNun.list(params), aperioNunInstanceTotal: AperioNun.count(), statistics: statistics]
+        [aperioNunInstanceList: AperioNun.list(params), aperioNunInstanceTotal: AperioNun.count(), summaryDataInstance: summaryDataInstance ]
     }
 
+	@CacheEvict("aperioNunListCache")
+	def refreshList() {
+		redirect(action: "list")		
+	}
+	
     def create() {
         [aperioNunInstance: new AperioNun(params)]
     }

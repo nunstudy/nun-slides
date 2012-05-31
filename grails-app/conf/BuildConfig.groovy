@@ -49,7 +49,7 @@ grails.project.dependency.resolution = {
 		compile ":spring-security-mock:1.0.1"
 		compile ":spring-security-shibboleth-native-sp:1.0.3"
 		compile ":cache-headers:1.0.4"
-		compile ":springcache:1.3.1"
+		compile ":cache:1.0.0.RC1"
 		compile ":jquery-ui:1.8.15"
 		compile ":joda-time:1.4"
     }

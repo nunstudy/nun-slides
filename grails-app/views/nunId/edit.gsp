@@ -11,7 +11,7 @@
 	<body>
 		<%-- MODAL DIALOG FOR BLOCK EDITING --%>
 		<div id="blockEditFormDialog" class="blockEdit" title="Edit Block" >
-			<g:form name="blockEditForm" >
+			<g:form name="blockEditForm" controller="block" >
 			</g:form>
 		</div>
 
@@ -32,13 +32,22 @@
 		<div id="edit-nunId" class="content scaffold-edit" role="main">
 			<%--<h1>Edit Subject</h1> --%>
 			<div class="subjectInfo" >
-				<h2><u><strong>Blocks</strong></u> for Aperio ID: <strong>${nunIdInstance?.aperioId}</strong> | Autopsy ID: <strong>${nunIdInstance?.autopId}</strong></h2>
+				<h2><strong>Showing <u>Blocks</u></strong> for Aperio ID: <strong>${nunIdInstance?.aperioId}</strong> | Autopsy ID: <strong>${nunIdInstance?.autopId}</strong></h2>
 			</div>
 			<div class="blockContainer">
 				<div class="blocks">
-					<g:if test="${nunIdInstance?.blocks}">
-						<div class="showHideBar"><a href="#" class="showAll" title="Show All">Show All</a>  |  <a href="#" class="hideAll" title="Hide All">Hide All</a></div>
+					<g:if test="${flash.message}">
+					<div class="message" role="status">${flash.message}</div>
 					</g:if>
+					
+					<div class="showHideBar">
+						<g:form name="createBlockForm" >
+							<span class="blockButton"><g:submitToRemote url="${[controller:'block', action:'create', id:nunIdInstance.id]}" update="blockEditForm" onSuccess="showBlockEditForm()" value="New Block" /></span>
+						</g:form>						
+						<g:if test="${nunIdInstance?.blocks}">
+								<a href="#" class="showAll" title="Show All">Show All</a>  |  <a href="#" class="hideAll" title="Hide All">Hide All</a>
+						</g:if>
+					</div>
 					<div id="blockList">
 						<g:render template="/block/blockInfo" collection="${nunIdInstance?.blocks}"/>
 					</div>

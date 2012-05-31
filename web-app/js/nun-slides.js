@@ -90,6 +90,12 @@ $(document).ready(function() {
     
     // Zebra stripe block row divs
     $(".blockRow:odd").addClass('odd');
+    
+    // Execute link click when table row selected
+    $(".subjectRow").click(function() {
+    	//$("#subjectCount").html('clicked subject row, going here ->' + $('a', this).attr('href'));	
+    	window.location = $('a', this).attr('href');
+    });
         
 });
 
@@ -119,6 +125,11 @@ function showHideBlockInfo(e) {
 	return false;	
 }
 
+function removeBlockInfoDiv(blockId) {
+	var elementId = '#block' + blockId;
+	$(elementId).hide();	
+}
+
 function getElementIdx(elementId) {
 	/**
 	 * Evaluates an element id string,
@@ -131,6 +142,10 @@ function getElementIdx(elementId) {
 		return elementId.substring(start);		
 	}
 	return null;
+}
+
+function confirmDeleteBlock() {
+	return confirm("Are you sure?");
 }
 
 function drawCircle() {

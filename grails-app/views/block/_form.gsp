@@ -1,7 +1,12 @@
 <%@ page import="org.nunstudy.pathology.Block" %>
 
 
-<g:hiddenField name="id" value="${blockInstance.id}" />
+<g:if test="${editing}">
+	<g:hiddenField name="id" value="${blockInstance.id}" />
+</g:if>
+<g:else>
+	<g:hiddenField name="nun" value="${blockInstance.nun.id}" />
+</g:else>
 
 <div class="fieldcontain ${hasErrors(bean: blockInstance, field: 'code', 'error')} ">
 	<label for="code">
@@ -77,7 +82,11 @@
 </div>
 
 <div class="dialogButtons">
-	<g:submitToRemote class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" update="${'block' + blockInstance.id}" value="Save" url="[controller:'block', action:'update']" after="closeBlockEditForm()" />
-	
+	<g:if test="${editing}">
+		<g:submitToRemote class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" update="${'block' + blockInstance.id}" value="Save" url="[action:'update']" after="closeBlockEditForm()" />
+	</g:if>
+	<g:else>
+		<g:actionSubmit class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" action="save" value="Save" onclick="closeBlockEditForm();"/>
+	</g:else>
 	<input id="blockEditFormCancelBtn" type="button" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" role="button" aria-disabled="false" onclick="closeBlockEditForm();" value="Cancel" />
 </div>

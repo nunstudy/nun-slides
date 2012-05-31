@@ -48,17 +48,9 @@ grails.spring.bean.packages = []
 grails.web.disable.multipart=false
 
 // Spring Cache (makes lookup FAST!)
-springcache {
-	defaults {
-		// set default cache properties that will apply to all caches that do not override them
-		eternal = false
-		diskPersistent = false
-	}
-	caches {
-		aperioNunListCache {
-			// set any properties unique to this cache
-			memoryStoreEvictionPolicy = "LRU"
-		}
+grails.cache.config = {
+	cache {
+		name 'aperioNuns'
 	}
 }
 
