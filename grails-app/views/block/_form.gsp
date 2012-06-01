@@ -83,7 +83,8 @@
 
 <div class="dialogButtons">
 	<g:if test="${editing}">
-		<g:submitToRemote class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" update="${'block' + blockInstance.id}" value="Save" url="[action:'update']" after="closeBlockEditForm()" />
+		<%--<g:submitToRemote class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" update="${'block' + blockInstance.id}" value="Save" url="[action:'update']" after="closeBlockEditForm()" /> --%>
+		<g:actionSubmit class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" action="update" value="Save" onclick="closeBlockEditForm();"/>
 	</g:if>
 	<g:else>
 		<g:actionSubmit class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" action="save" value="Save" onclick="closeBlockEditForm();"/>

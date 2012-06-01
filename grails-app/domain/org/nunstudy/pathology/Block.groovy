@@ -26,7 +26,13 @@ class Block {
 		
 	static hasMany = [ stains: Stain ]
 	
-	String toString() { "${label}: ${hemisphere}, ${blockArea}" }
+	String toString() { 
+		if (hemisphere) {
+			"${label}: ${hemisphere}, ${blockArea}" 
+		} else {
+			"${label}: ${blockArea}" 
+		}
+	}
 	
     static constraints = {
 		code(nullable:true)

@@ -27,7 +27,11 @@ $(document).ready(function() {
 		}
 	});
 		
-	$(".blockHeader").click(function() {
+	// Close all blocks by default
+	$("div[id*='blockHeader']").addClass("closed");
+	$("div[id*='blockHeader']").next().hide();
+	
+	$("div[id*='blockHeader']").click(function() {
 		$(this).next().toggle('fast');
 		if ($(this).hasClass("open")) {
 			$(this).removeClass("open");
@@ -41,7 +45,7 @@ $(document).ready(function() {
 	
 	// Show all block divs
 	$(".showAll").click(function() {
-		$(".blockHeader").each(function() {
+		$("div[id*='blockHeader']").each(function() {
 			$(this).removeClass("closed");
 			$(this).addClass("open");										
 			$(this).next().show('fast');
@@ -50,12 +54,18 @@ $(document).ready(function() {
 
 	// Hide all block divs
 	$(".hideAll").click(function() {
-		$(".blockHeader").each(function() {
+		$("div[id*='blockHeader']").each(function() {
 			$(this).removeClass("open");
 			$(this).addClass("closed");										
 			$(this).next().hide('fast');
 		});
 	});
+
+	// Show a specific block div on load
+	var blockHeaderToOpen = '#blockHeader' + $("#blockToOpen").val();
+	$(blockHeaderToOpen).removeClass("closed");
+	$(blockHeaderToOpen).addClass("open");										
+	$(blockHeaderToOpen).next().show();
 	
 	// Setup block edit form dialog 
 	$("#blockEditFormDialog").dialog({
@@ -80,6 +90,30 @@ $(document).ready(function() {
 		$("#blockEditFormDialog").dialog("close");  
 		return false;
     });
+ 
+	// Setup stain edit form dialog 
+	$("#stainEditFormDialog").dialog({
+		autoOpen: false,
+		height: 150,
+		width: 350,
+		modal: true		
+	});
+	
+	// Open block edit form dialog 
+	$("a[id*='stainEditFormOpenLink_']").click(function() {
+		 $('body').css('overflow','hidden');
+		$("#stainEditFormDialog").dialog("open");
+		if (debug) {
+			$('#infoMessage').html("Dialog opened");
+		}
+	});
+	
+	// Close block edit form dialog 
+    $("#stainEditFormCancelBtn").click(function() {
+    	$('body').css('overflow','scroll');
+		$("#stainEditFormDialog").dialog("close");  
+		return false;
+    });
     
     $('.ui-button').hover(function() {
     	$(this).addClass('ui-state-hover');
@@ -96,7 +130,21 @@ $(document).ready(function() {
     	//$("#subjectCount").html('clicked subject row, going here ->' + $('a', this).attr('href'));	
     	window.location = $('a', this).attr('href');
     });
-        
+  
+    $('.showSummary').html('Show Summary Table');
+    $('.showSummary').click(function() {
+		$(this).next().toggle('fast');
+		if ($(this).hasClass("open")) {
+			$(this).removeClass("open");
+			$(this).addClass("closed");	
+			$(this).html('Show Summary Table');
+		} else {
+			$(this).removeClass("closed");
+			$(this).addClass("open");						
+			$(this).html('Hide Summary Table');
+		}
+		return false;
+	}).next().hide();    });
 });
 
 function showBlockEditForm() {
@@ -107,6 +155,16 @@ function showBlockEditForm() {
 function closeBlockEditForm() {
 	$('body').css('overflow','scroll');
 	$("#blockEditFormDialog").dialog("close");	
+}
+
+function showStainEditForm() {
+	$('body').css('overflow','hidden');
+	$("#stainEditFormDialog").dialog("open");	
+}
+
+function closeStainEditForm() {
+	$('body').css('overflow','scroll');
+	$("#stainEditFormDialog").dialog("close");	
 }
 
 function showHideBlockInfo(e) {

@@ -2,7 +2,13 @@
 input {
 	border: 1px solid #aaa;
 }
-
+.intro p {
+	font-size: 1.3em;
+}
+.subjectListMain {
+	font-size: 1.5em;
+	padding: 0.5em 0 4.0em 4.5em; 
+}
 /* NAVIGATION MENU */
 
 .nav {
@@ -99,6 +105,10 @@ input {
 }
 
 /* SEARCH */
+#search {
+	padding: 1.0em 5.0em;
+	font-size: 1.3em;
+}
 .searchBox {
 	margin-top: 0.2em;
 	padding: 0 0.2em;
@@ -138,8 +148,14 @@ input {
 .blockHeader {
 	padding-left: 2.0em;
 	float:left;
-	width:100%;
-	min-width:100%;
+	width:40%;
+	min-width:40%;
+   -moz-border-top-left-radius: 0.3em;
+	-webkit-border-top-left-radius: 0.3em;
+     border-top-left-radius: 0.3em;
+   -moz-border-top-right-radius: 0.3em;
+	-webkit-border-top-right-radius: 0.3em;
+     border-top-right-radius: 0.3em;
 }
 .blockHeader h3 {
 	white-space: nowrap;
@@ -152,16 +168,21 @@ input {
 }
 .open {
 	background: url(../images/skin/maroon-dropdown-arrow-active20x20.png) center left no-repeat;	
+	border-top: 1px solid #7a001e;
+	border-left: 1px solid #7a001e;
+	border-right: 1px solid #7a001e;
 }
 .closed {
 	background: url(../images/skin/maroon-dropdown-arrow20x20.png) center left no-repeat;	
+	border: none;
 }
 .blockHeader:hover {
 	cursor: pointer;
 }
 
 .blockInfo {
-	/*border: 1px dotted #ccc;*/
+	padding: 0.5em 0;
+	border: 1px solid #7a001e;
 	float:left;
 	width:100%;
 }
@@ -175,25 +196,21 @@ input {
 .editBlock {
 	float:left;
 	width: 100%;
-	padding: 0.5em;
+	padding: 0.5em 0;
+	margin-bottom: 0.5em;
 	display:block;
+	border-bottom: 1px dotted #ccc;
 }
 .editBlock form {
 	float:left;
-	width: 7.0em;
+	width:7.0em;
+	padding-left: 0.5em;
 }
-.editBlockLink {
-	border: 1px solid #ccc;
-	padding: 0.3em 0.5em;
-}
-.editBlockLink a {
-	margin-top: 0.5em;
-}
-
-.editBlockLink:hover {
-	background-color:red;
+.blockButton {
+	float:left;
 }
 .blockButton input {
+	float:left;
 	border: 1px solid #ccc;
 	padding: 0.3em 0.5em;
 	font-weight:bold;
@@ -211,14 +228,33 @@ input {
 	float:left;
 	width:100%;
 }
+.stainInfo form {
+	padding-left: 0.5em;
+}
 .stainRow {
 	padding: 0.4em 2.0em;
 	width:100%;
 }
+.stainRow input{
+	border:none;
+}
+
 .stainRow em {
 	margin-left:1.0em;
 	padding-left: 2.0em;
 	background: url(../images/skin/aperio-small.png) center left no-repeat;	
+}
+.deleteItem {
+	background: transparent url(../images/skin/delete-icon_16x16.png) center left no-repeat;	
+	padding-left: 2.0em;
+	width: 2.0em;
+}
+.deleteItem:hover {
+	background: transparent url(../images/skin/delete-icon_16x16.png) center left no-repeat;	
+	cursor:pointer;
+}
+.deleted {
+	color: #ccc;
 }
 .showHideBar {
 	float:left;
@@ -234,8 +270,13 @@ input {
 	float:left;
 	width: 7.0em;
 }
-.showAll .hideAll {
+.showHideAll {
 	float:left;
+	dispaly:block;
+	min-width: 15%;
+	width: 15%;
+}
+.showAll .hideAll {
 	padding: 0.5em;
 }
 .bottomBumper {
@@ -288,4 +329,10 @@ input {
 	font-size: 1.1em;
 	font-weight: bold;
 	padding: 0.5em;
+}
+.property-value {
+	font-weight: bold;
+}
+.stats {
+	width: 30%;
 }

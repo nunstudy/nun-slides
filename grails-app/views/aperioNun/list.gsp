@@ -6,7 +6,7 @@
 	<head>
 		<meta name="layout" content="umn">
 		<g:set var="entityName" value="${message(code: 'aperioNun.label', default: 'AperioNun')}" />
-		<title>Subject List</title>
+		<title>Subject Slide Scan Status List</title>
 	</head>
 	<body>
 		<div class="nav" role="navigation">
@@ -28,25 +28,26 @@
 			<div class="message" role="status">${flash.message}</div>
 			</g:if>
 			<div class="stats">
+				<label class="showSummary closed"></label>
 				<table>
 					<tr>
 						<td>Brains Not Received:</td><td>${summaryDataInstance.needBrain}</td>
 					</tr>
 					<tr>
-						<td>No Data Entered:</td><td>${summaryDataInstance.noData}</td>
+						<td class="noData">No Data Entered:</td><td class="noData">${summaryDataInstance.noData}</td>
 					</tr>
 					<tr>
-						<td>No Slides Scanned:</td><td>${summaryDataInstance.zeroScanned}</td>
+						<td class="todo">No Slides Scanned:</td><td class="todo">${summaryDataInstance.zeroScanned}</td>
 					</tr>
 					<tr>
-						<td>Some Slides Scanned:</td><td>${summaryDataInstance.someScanned}</td>
+						<td class="started">Some Slides Scanned:</td><td class="started">${summaryDataInstance.someScanned}</td>
 					</tr>
 					<tr>
-						<td>All Slides Scanned:</td><td>${summaryDataInstance.allScanned}</td>
+						<td class="done">All Slides Scanned:</td><td class="done">${summaryDataInstance.allScanned}</td>
 					</tr>
 				</table>
 			</div>
-			<div id="subjectCount">Showing ${aperioNunInstanceTotal} subjects</div>
+			<div id="subjectCount"><strong>Showing ${aperioNunInstanceTotal} subjects</strong></div>
 			<table>
 				<thead>
 					<tr>

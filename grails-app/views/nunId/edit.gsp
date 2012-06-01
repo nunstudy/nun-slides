@@ -14,6 +14,10 @@
 			<g:form name="blockEditForm" controller="block" >
 			</g:form>
 		</div>
+		<div id="stainEditFormDialog" class="stainEdit" title="Edit Stain" >
+			<g:form name="stainEditForm" controller="stain" >
+			</g:form>
+		</div>
 
 		<div class="nav" role="navigation">
 			<div class="navLeft">
@@ -41,15 +45,20 @@
 					</g:if>
 					
 					<div class="showHideBar">
+						<g:if test="${nunIdInstance?.blocks}">
+								<span class="showHideAll"><a href="#" class="showAll" title="Show All">Show All</a>  |  <a href="#" class="hideAll" title="Hide All">Hide All</a></span>
+						</g:if>
 						<g:form name="createBlockForm" >
 							<span class="blockButton"><g:submitToRemote url="${[controller:'block', action:'create', id:nunIdInstance.id]}" update="blockEditForm" onSuccess="showBlockEditForm()" value="New Block" /></span>
 						</g:form>						
-						<g:if test="${nunIdInstance?.blocks}">
-								<a href="#" class="showAll" title="Show All">Show All</a>  |  <a href="#" class="hideAll" title="Hide All">Hide All</a>
-						</g:if>
+						<g:form name="createBlockTemplateForm" controller="nunId" >
+							<g:hiddenField name="id" value="${nunIdInstance.id}" />
+							<span class="blockButton"><g:actionSubmit action="createTemplate" value="New Template" /></span>
+						</g:form>						
 					</div>
 					<div id="blockList">
-						<g:render template="/block/blockInfo" collection="${nunIdInstance?.blocks}"/>
+						<g:hiddenField name="blockToOpen" value="${blockId}"/>
+						<g:render template="/block/blockInfo" collection="${nunIdInstance?.blocks}" var="blockInstance" />
 					</div>
 				</div>
 				<%--<g:render template="form"/> --%>

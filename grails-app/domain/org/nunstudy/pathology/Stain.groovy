@@ -22,7 +22,7 @@ class Stain {
 	String toString() { type }
 			
     static constraints = {
-		stainCode()
+		stainCode nullable: true
 		type()
 		dateDeleted nullable: true
 		neuronalLoss nullable: true
@@ -43,7 +43,7 @@ class Stain {
 		id column:'StainID', type: 'long', sqlType: 'int'
 
 		block column:'BlockID', type: 'long', sqlType: 'int'
-		stainCode column:'StainCode'
+		stainCode column:'StainCode', insertable: false, updateable: false
 		type column:'StainTypeID', type: 'long', sqlType: 'int'
 		dateDeleted column:'DeleteDate'
 		neuronalLoss column:'NeuronalLoss', type: 'int', sqlType: 'tinyint'
