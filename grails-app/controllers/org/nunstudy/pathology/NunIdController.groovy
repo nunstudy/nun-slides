@@ -10,9 +10,13 @@ class NunIdController {
 	def nunIdService
 	def dataSource
 	
-	def debug = true
+	def debug = false
 	
 	def find() {
+		/**
+		 * Find Nun ID object by Aperio ID or
+		 * Autopsy ID.
+		 */
 		def nunIdInstance = nunIdService.findNunId(params.id)
 		if (!nunIdInstance) {
 			flash.message = "Oops, sorry. A subject could not be found with id $params.id"
@@ -29,6 +33,23 @@ class NunIdController {
 			//redirect(action: "show", id: nunIdInstance.id)
 		}
 	}	
+	
+	def edit() {
+		def nunIdInstance = NunId.get(params.id)
+		if (!nunIdInstance) {
+			flash.message = "Oops, sorry. A subject could not be found with id $params.id"
+			redirect(controller:"mainMenu")
+		} else {
+			if (params.openDiv) {
+				if (debug) {
+					println "Setting block id to::$params.blockId"
+				}
+				render(view: "edit", model: [nunIdInstance: nunIdInstance, blockId: params.blockId])
+				return				
+			}
+			render(view: "edit", model: [nunIdInstance: nunIdInstance])
+		}
+	}
 	
 	def createTemplate() {
 		def username = springSecurityService.principal.getUsername()

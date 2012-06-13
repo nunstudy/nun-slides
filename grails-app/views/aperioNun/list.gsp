@@ -28,7 +28,7 @@
 			<div class="message" role="status">${flash.message}</div>
 			</g:if>
 			<div class="stats">
-				<label class="showSummary closed"></label>
+				<h2 class="showSummary closed"></h2>
 				<table>
 					<tr>
 						<td>Brains Not Received:</td><td>${summaryDataInstance.needBrain}</td>
@@ -47,11 +47,18 @@
 					</tr>
 				</table>
 			</div>
-			<div id="subjectCount"><strong>Showing ${aperioNunInstanceTotal} subjects</strong></div>
-			<table>
+
+			<div class="syncBox">
+				<div><span class="blockButton syncButton"><g:remoteLink action="runSyncWithAperio" update="syncInfo">Synchronize with Aperio Data</g:remoteLink></span></div>
+				<div id="syncInfo"></div>
+			</div>
+
+			<div class="subjectCount" title="${aperioNunInstanceTotal}"><strong>Showing 10 of ${aperioNunInstanceTotal} subjects</strong></div>
+			<div class="tableContainer">
+			<table id="sortableTable" class="tablesorter">
 				<thead>
 					<tr>
-						<g:sortableColumn property="id" title="${message(code: 'aperioNun.id.label', default: 'Aperio Id')}" />
+						<%--<g:sortableColumn property="id" title="${message(code: 'aperioNun.id.label', default: 'Aperio Id')}" />
 					
 						<g:sortableColumn property="autopId" title="${message(code: 'aperioNun.autopId.label', default: 'Autop Id')}" />
 					
@@ -63,14 +70,29 @@
 					
 						<g:sortableColumn property="stains" title="${message(code: 'aperioNun.stains.label', default: 'Slides')}" />
 					
-						<g:sortableColumn property="aperio" title="${message(code: 'aperioNun.aperio.label', default: 'Scanned')}" />
+						<g:sortableColumn property="aperio" title="${message(code: 'aperioNun.aperio.label', default: 'Scanned')}" /> --%>
+
+						<th>Aperio Id</th>
+					
+						<th>Autop Id</th>
+					
+						<th>Autopsy Year</th>
+
+						<th>Autopsy Order</th>
+
+						<th>Blocks</th>
+					
+						<th>Slides</th>
+					
+						<th>Scanned</th>
 
 						<th>Status</th>
 					</tr>
 				</thead>
 				<tbody>
 				<g:each in="${aperioNunInstanceList}" status="i" var="aperioNunInstance">
-					<tr class="subjectRow ${(i % 2) == 0 ? 'even' : 'odd'}">
+					<%--<tr class="subjectRow ${(i % 2) == 0 ? 'even' : 'odd'}"> --%>
+					<tr>
 
 						<td><g:link controller="nunId" action="find" id="${aperioNunInstance.id}"><g:formatNumber number="${aperioNunInstance.id}" format="####"/></g:link></td>
 					
@@ -86,14 +108,31 @@
 					
 						<td>${fieldValue(bean: aperioNunInstance, field: "aperio")}</td>
 
-						<td class="status <g:if test='${aperioNunInstance.status == 1}'>noData</g:if> <g:if test='${aperioNunInstance.status == 2}'>done</g:if> <g:if test='${aperioNunInstance.status == 3}'>todo</g:if> <g:if test='${aperioNunInstance.status == 4}'>started</g:if>" ><g:scannedStatus status="${aperioNunInstance.status}" /></td>
+						<td class="status <g:if test='${aperioNunInstance.status == 1}'>noData</g:if><g:if test='${aperioNunInstance.status == 2}'>done</g:if><g:if test='${aperioNunInstance.status == 3}'>todo</g:if><g:if test='${aperioNunInstance.status == 4}'>started</g:if>" ><g:scannedStatus status="${aperioNunInstance.status}" /></td>
 					
 					</tr>
 				</g:each>
 				</tbody>
 			</table>
-			<div class="pagination">
+			<%--<div class="pagination">
 				<g:paginate total="${aperioNunInstanceTotal}" />
+			</div> --%>
+				<div id="pager" class="tablesorterPager">
+					<form>
+					  <img src="${resource(dir: 'images/addons/pager', file: 'first.png')}" class="first"/>
+					  <img src="${resource(dir: 'images/addons/pager', file: 'prev.png')}" class="prev"/>
+					  <input type="text" class="pagedisplay"/>
+					  <img src="${resource(dir: 'images/addons/pager', file: 'next.png')}" class="next"/>
+					  <img src="${resource(dir: 'images/addons/pager', file: 'last.png')}" class="last"/>
+					  <select class="pagesize">
+					    <option selected="selected"  value="10">10</option>
+					    <option value="20">20</option>
+					    <option value="30">30</option>
+					    <option  value="40">40</option>
+					    <option  value="${aperioNunInstanceTotal}">All</option>
+					  </select>
+					</form>
+				</div>
 			</div>
 		</div>
 	</body>

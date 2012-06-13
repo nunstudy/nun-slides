@@ -11,7 +11,6 @@
 		<link rel="stylesheet" type="text/css" href="${createLink(controller:'css',action:'template')}" />
         <link rel="stylesheet" type="text/css" href="${resource(dir:'css',plugin:'umn-web-template',file:'umn_print.css')}" media="print" />
 		<link rel="stylesheet" type="text/css" href="${createLink(controller:'css',action:'print')}" media="print" />
-        <link rel="stylesheet" type="text/css" href="${resource(dir:'css',file:'nun-slides.css')}" />
         <link rel="shortcut icon" href="${resource(dir:'images',plugin:'umn-web-template',file:'favicon.ico')}" type="image/x-icon" />
 	<g:javascript plugin="umn-web-template" src="umn_searchfield.js" />
         

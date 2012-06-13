@@ -27,7 +27,7 @@ class Block {
 	static hasMany = [ stains: Stain ]
 	
 	String toString() { 
-		if (hemisphere) {
+		if (hemisphere && !hemisphere ==~ /Undefined/) {
 			"${label}: ${hemisphere}, ${blockArea}" 
 		} else {
 			"${label}: ${blockArea}" 

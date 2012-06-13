@@ -2,11 +2,11 @@ package org.nunstudy.pathology
 
 import org.springframework.dao.DataIntegrityViolationException
 import grails.plugins.springsecurity.Secured
-import grails.plugin.cache.CacheEvict
 
 @Secured(['ROLE_NUNSTUDY_ADMINISTRATIVE', 'ROLE_NUNSTUDY'])
 class BlockController {
 	def springSecurityService
+	def aperioService
 	def debug = true
 	
     static allowedMethods = [save: "POST", update: "POST", delete: "POST"]
@@ -23,7 +23,6 @@ class BlockController {
        // [blockInstance: blockInstance]
     }
 	
-	@CacheEvict("aperioNunListCache")
     def save() {
 		def username = springSecurityService.principal.getUsername()
 		def nunInstance = Nun.get(params.nun.toLong())
@@ -50,7 +49,7 @@ class BlockController {
 		
 		flash.message = "Block $blockInstance created successfully!"
         //redirect(action: "show", id: blockInstance.id)
-        redirect(controller: "nunId", action: "find", id: blockInstance.nun.id, params: [ openDiv: true, blockId: blockInstance.id ])
+        redirect(controller: "nunId", action: "edit", id: blockInstance.nun.id, params: [ openDiv: true, blockId: blockInstance.id ])
     }
 
     def edit() {
@@ -70,7 +69,6 @@ class BlockController {
 		
     }
 
-	@CacheEvict("aperioNunListCache")
     def update() {
 		def username = springSecurityService.principal.getUsername()
         def blockInstance = Block.get(params.id)
@@ -95,11 +93,11 @@ class BlockController {
 		flash.message = "Block $blockInstance updated successfully!"
 		//infoMessage = message(code: 'default.updated.message', args: [message(code: 'block.label', default: 'Block'), blockInstance.id.toString()])
 		//render(template: "blockInfo", model: [ blockInstance: blockInstance, infoMessage: infoMessage  ] )
-        redirect(controller: "nunId", action: "find", id: blockInstance.nun.id, params: [ openDiv: true, blockId: blockInstance.id ])
+        redirect(controller: "nunId", action: "edit", id: blockInstance.nun.id, params: [ openDiv: true, blockId: blockInstance.id ])
    }
 
-	@CacheEvict("aperioNunListCache")
     def delete() {
+		def username = springSecurityService.principal.getUsername()
         def blockInstance = Block.get(params.id)
 		if (debug) {
 			println "Attempting to delete block::$blockInstance"
@@ -109,16 +107,37 @@ class BlockController {
             redirect(controller: "aperioNun", action: "list")
             return
         }
-
-        try {
-            blockInstance.delete(flush: true)
-			flash.message = "Block $blockInstance deleted"
-            redirect(controller: "nunId", action: "find", id: blockInstance.nun.id)
-        }
-        catch (DataIntegrityViolationException e) {
-			flash.message = message(code: 'default.not.deleted.message', args: [message(code: 'block.label', default: 'Block'), params.id])
-            redirect(controller: "nunId", action: "find", id: blockInstance.nun.id, params: [ openDiv: true, blockId: blockInstance.id ])
-        }
+		def nunInstance = blockInstance.nun
+		// Determine if the block has stains associated with Aperio Scanned Slides
+		def stainWithAperioScannedSlide = aperioService.hasAperioScannedSlide(blockInstance)
+		if (stainWithAperioScannedSlide) {
+			if (debug) {
+				println "Block $blockInstance has stains with corresponding Aperio Scanned Slides"
+			}
+			// Flag block as deleted
+			blockInstance.dateDeleted = new Date()
+			blockInstance.userUpdated = username
+			if (!blockInstance.save(flush:true)) {
+				flash.message = "Block $blockInstance could not be deleted."				
+				redirect(controller: "nunId", action: "edit", id: nunInstance.id)
+				return
+			}	
+		} else {
+			if (debug) {
+				println "Block $blockInstance has no stains with corresponding Aperio Scanned Slides"
+			}
+			// Try to delete block
+			try {
+				blockInstance.delete(flush:true)
+				nunInstance.refresh()				
+			} catch (Exception ex) {
+				flash.message = "Block $blockInstance could not be deleted. Failed with error:$ex"				
+				redirect(controller: "nunId", action: "edit", id: nunInstance.id)
+				return
+			}
+		}
+		flash.message = "Block $blockInstance deleted"				
+        redirect(controller: "nunId", action: "edit", id: nunInstance.id)
     }
 	
 	def deleteStain() {
@@ -136,7 +155,7 @@ class BlockController {
 		}
 		if (!stainInstance.save(flush: true)) {
 			flash.message = message(code: 'default.created.message', args: [message(code: 'stain.label', default: 'Stain'), stainInstance.id.toString()])
-			redirect(controller: "nunId", action: "find", id: stainInstance.block.nun.id)
+			redirect(controller: "nunId", action: "edit", id: stainInstance.block.nun.id)
 			return
 		}
 
@@ -147,7 +166,7 @@ class BlockController {
 		//redirect(controller: "nunId", action: "find", id: stainInstance.block.nun.id)
 		//render(template: "blockInfo", model: [ blockInstance: stainInstance.block, infoMessage: infoMessage  ] )
 		flash.message = "Slide $stainInstance removed"
-		redirect(controller: "nunId", action: "find", id: stainInstance.block.nun.id, params: [ openDiv: true, blockId: stainInstance.block.id ])
+		redirect(controller: "nunId", action: "edit", id: stainInstance.block.nun.id, params: [ openDiv: true, blockId: stainInstance.block.id ])
 		
 	}
 }

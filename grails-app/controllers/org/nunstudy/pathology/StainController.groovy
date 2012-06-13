@@ -5,7 +5,7 @@ import grails.plugins.springsecurity.Secured
 @Secured(['ROLE_NUNSTUDY_ADMINISTRATIVE', 'ROLE_NUNSTUDY'])
 class StainController {
 	def springSecurityService
-	def debug = true
+	def debug = false
 	
 	def create() {
 		def blockInstance = Block.read(params.id)
@@ -60,7 +60,7 @@ class StainController {
 		
 		if (!stainInstance.save(flush: true)) {
 			flash.message = message(code: 'default.created.message', args: [message(code: 'block.label', default: 'Stain'), stainInstance.id.toString()])
-			redirect(controller: "nunId", action: "find", id: blockInstance?.nun.id)
+			redirect(controller: "nunId", action: "edit", id: blockInstance?.nun.id)
 			return
 		}
 		if (stainInstance) {
@@ -68,7 +68,7 @@ class StainController {
 		}
 		
 		flash.message = "${stainInstance.toString().toUpperCase()} Stain created for Block: $blockInstance"
-		redirect(controller: "nunId", action: "find", id: blockInstance.nun.id, params: [ openDiv: true, blockId: blockInstance.id ])
+		redirect(controller: "nunId", action: "edit", id: blockInstance.nun.id, params: [ openDiv: true, blockId: blockInstance.id ])
 	}
 		
 }

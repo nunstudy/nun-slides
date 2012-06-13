@@ -1,7 +1,7 @@
 
 <div id="${'block' + blockInstance.id}">
-	<div class="blockRow">
-		<div id="${'blockHeader' + blockInstance.id}" class="blockHeader closed"><h3 title="Block ${blockInstance.id} created on <g:formatDate date='${blockInstance.dateCreated}' format='MM/dd/yyyy h:mm a'/> by ${blockInstance.userCreated}">${blockInstance}</h3></div>
+	<div class="blockRow">	
+		<div id="${'blockHeader' + blockInstance.id}" class="blockHeader closed <g:if test='${blockInstance.dateDeleted}'>deleted</g:if>"><h3 title="Block ${blockInstance.id} created on <g:formatDate date='${blockInstance.dateCreated}' format='MM/dd/yyyy h:mm a'/> by ${blockInstance.userCreated}">${blockInstance} <g:if test="${blockInstance.dateDeleted}">- Deleted on <g:formatDate date="${blockInstance.dateDeleted}" format="MM/dd/yyyy h:mm a"/> by ${blockInstance.userUpdated}</g:if></h3></div>
 		<div class="blockInfo">
 			<g:if test="${infoMessage}">
 			<div class="message" role="status">${infoMessage}</div>

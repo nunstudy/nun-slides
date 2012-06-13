@@ -4,7 +4,7 @@
 * 
 * Custom jQuery for nun-slides application.
 */
-var debug = true;
+var debug = false;
 var raphaeljs = false;
 
 $(document).ready(function() {
@@ -26,7 +26,20 @@ $(document).ready(function() {
 			$(this).val('');			
 		}
 	});
-		
+	
+	// Make subject list table sortable and add pagination
+	$("#sortableTable")
+	.tablesorter( {widgets: ['zebra'], sortList: [[0,0]]} )
+	.tablesorterPager({container: $("#pager")});
+	
+	// Update the showing subjects count
+	$('.pagesize').change(function(){
+		if (debug) {
+			alert('Updating show message');
+		}
+		$('.subjectCount').html('Showing ' + $(this).val() + ' of ' + $('.subjectCount').attr('title') + ' subjects');
+	});
+	
 	// Close all blocks by default
 	$("div[id*='blockHeader']").addClass("closed");
 	$("div[id*='blockHeader']").next().hide();
@@ -144,7 +157,8 @@ $(document).ready(function() {
 			$(this).html('Hide Summary Table');
 		}
 		return false;
-	}).next().hide();    });
+	}).next().hide();
+    
 });
 
 function showBlockEditForm() {

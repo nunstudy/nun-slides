@@ -1,12 +1,11 @@
 package org.nunstudy.pathology
 
 import org.joda.time.*
+import groovy.sql.Sql
 
 class AperioService {
-
-    def serviceMethod() {
-
-    }
+	def dataSource
+	def debug = true
 	
 	def scanStatus(Integer status) {
 		if (status) {
@@ -100,5 +99,50 @@ class AperioService {
 		DateTime endDate = new DateTime('2099-1-1')
 		
 		return Days.daysBetween(startDate,endDate).getDays()
+	}
+	
+	def syncWithAperio() {
+		/**
+		 * Executes the dbo.spSync_Aperio_Data stored
+		 * procedure to update aperio_scanned_slides table
+		 * with the current scanned slides data from the remote
+		 * Aperio system. Requires a link to the Aperio database
+		 * (nun_slides) in SQL Server. Returns a success or
+		 * failure message
+		 */
+		if (debug) {
+			println "Executing stored procedure::dbo.spSync_Aperio_Data"
+		}
+		try {
+			Sql sql = new groovy.sql.Sql(dataSource)
+			sql.execute("EXEC dbo.spSync_Aperio_Data")
+			return true
+		} catch (Exception ex) {
+			log.warn "The dbo.spSync_Aperio_Data stored procedure failed::$ex"
+			if (debug) {
+				println "The dbo.spSync_Aperio_Data stored procedure failed::$ex"
+			}
+			return false	
+		}
+	}
+
+	def hasAperioScannedSlide(Block blockInstance) {
+		/**
+		 * Determines if any stains/slides associated with
+		 * a block have a corresponding AperioScannedSlide.
+		 */
+		def found = false
+		blockInstance.stains.each {
+			if (AperioScannedSlide.findByStain(it)) {
+				if (debug) {
+					println "Aperio Scanned Slide found that matches stain: $it, returning true"
+				}
+				found = true
+			}
+		}
+		if (debug) {
+			println "hasAperioScannedSlide returning $found"
+		}
+		return found
 	}
 }

@@ -125,6 +125,10 @@ input {
     font-size: .85em;
     padding: 0.5em;
 }
+.tableContainer {
+	float:left;
+	width:100%;
+}
 /* SUBJECT */
 .subjectInfo {
 	/*border: 1px solid #ccc;*/
@@ -148,8 +152,8 @@ input {
 .blockHeader {
 	padding-left: 2.0em;
 	float:left;
-	width:40%;
-	min-width:40%;
+	width:50%;
+	min-width:50%;
    -moz-border-top-left-radius: 0.3em;
 	-webkit-border-top-left-radius: 0.3em;
      border-top-left-radius: 0.3em;
@@ -159,6 +163,9 @@ input {
 }
 .blockHeader h3 {
 	white-space: nowrap;
+}
+.deleted {
+	text-decoration:line-through;
 }
 .blockEdit label {
 	padding: 0.3em 1.0em 0.3em 0;
@@ -209,7 +216,7 @@ input {
 .blockButton {
 	float:left;
 }
-.blockButton input {
+.blockButton input, .blockButton a {
 	float:left;
 	border: 1px solid #ccc;
 	padding: 0.3em 0.5em;
@@ -218,7 +225,7 @@ input {
 	-webkit-border-radius: 0.3em;
 	        border-radius: 0.3em;	        
 }
-.blockButton input:hover {
+.blockButton input:hover, .blockButton a:hover {
 	background-color:#7a001e;
 	border-color:#ffcc33;
 	color:#ffcc33;
@@ -226,6 +233,9 @@ input {
 }
 .stainInfo {
 	float:left;
+	width:100%;
+}
+.stainInfo h3 {
 	width:100%;
 }
 .stainInfo form {
@@ -333,6 +343,28 @@ input {
 .property-value {
 	font-weight: bold;
 }
+/* SUBJECT LIST */
 .stats {
 	width: 30%;
+	padding: 0.8em 0.5em;
+}
+.stats .open {
+	background: url(../images/skin/maroon-dropdown-arrow-active20x20.png) center left no-repeat;	
+	border:none;
+}
+.showSummary {
+	text-align: left;
+	padding-left: 2.0em;
+}
+.showSummary:hover {
+	cursor: pointer;
+}
+.syncBox {
+	background: url(../images/skin/aperio.png) center left no-repeat;	
+	padding: 0.8em 0;
+	width: 100%;
+	min-height: 2.0em;
+}
+.syncButton {
+	padding-left: 8.0em;
 }
