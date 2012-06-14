@@ -310,20 +310,21 @@ input {
 }
 /* SCAN STATUS */
 .status {
-	color: #000;
-	outline: #ccc dotted thin;
+	color:#000;
+	padding-left: 3.0em;
+	font-size: 1.1em;
 }
 .noData {
-    background: #999;	
+	background: transparent url(../images/skin/warning_20x17.png) center left no-repeat;	
 }
 .done {
-    background: #66ff66;	
+	background: transparent url(../images/skin/check_icon_20x20.png) center left no-repeat;	
 }
 .started {
-    background: #ff9966;	
+	background: transparent url(../images/skin/construction-clock_20x17.png) center left no-repeat;	
 }
 .todo {
-    background: #ff3366;	
+	background: transparent url(../images/skin/under-construction-clock_19x15.png) center left no-repeat;	
 }
 .subjectRow:hover {
 	background: black;

@@ -31,19 +31,19 @@
 				<h2 class="showSummary closed"></h2>
 				<table>
 					<tr>
-						<td>Brains Not Received:</td><td>${summaryDataInstance.needBrain}</td>
+						<td class="status">Brains Not Received:</td><td>${summaryDataInstance.needBrain}</td>
+					</tr>
+					<tr class="odd">
+						<td class="status noData">No Data Entered:</td><td>${summaryDataInstance.noData}</td>
 					</tr>
 					<tr>
-						<td class="noData">No Data Entered:</td><td class="noData">${summaryDataInstance.noData}</td>
+						<td class="status todo">No Slides Scanned:</td><td>${summaryDataInstance.zeroScanned}</td>
+					</tr>
+					<tr class="odd">
+						<td class="status started">Some Slides Scanned:</td><td>${summaryDataInstance.someScanned}</td>
 					</tr>
 					<tr>
-						<td class="todo">No Slides Scanned:</td><td class="todo">${summaryDataInstance.zeroScanned}</td>
-					</tr>
-					<tr>
-						<td class="started">Some Slides Scanned:</td><td class="started">${summaryDataInstance.someScanned}</td>
-					</tr>
-					<tr>
-						<td class="done">All Slides Scanned:</td><td class="done">${summaryDataInstance.allScanned}</td>
+						<td class="status done">All Slides Scanned:</td><td>${summaryDataInstance.allScanned}</td>
 					</tr>
 				</table>
 			</div>
@@ -124,6 +124,7 @@
 					  <input type="text" class="pagedisplay"/>
 					  <img src="${resource(dir: 'images/addons/pager', file: 'next.png')}" class="next"/>
 					  <img src="${resource(dir: 'images/addons/pager', file: 'last.png')}" class="last"/>
+					  <label>Show</label>
 					  <select class="pagesize">
 					    <option selected="selected"  value="10">10</option>
 					    <option value="20">20</option>
