@@ -26,32 +26,42 @@
 				</g:each>
 			</ul>
 		</div> --%>
-		<div id="page-body" role="main" class="intro">
-            <h1>Welcome to the Nun Study Slides Application</h1>
-            <p>This application allows authenticated users to access and manage slide data associated with nun study participants.</p>
-            
-            <p>Note: To manage administrative data for the nun study, please visit the <a href="https://secure.healthstudies.umn.edu/nun-manage" title="Go to Nun Manage" target="_blank">Nun Manage Application</a>. To view or edit gross reports, microscopic findings or plaques and tangles, please visit the
-            <a href="https://secure.healthstudies.umn.edu/nun-brainlab" title="Go to Neuropathology" target="_blank">Neuropathology Application</a>. 
-            </p>
-			
-			<g:if test="${flash.message}">
-				<div class="message" role="status">${flash.message}</div>
-			</g:if>
-			<%--<div id="infoMessage" class="message" role="status"></div> --%>
-			
-			<g:form name="searchForm" method="post" controller="nunId" action="find" >			
-				<div id="search">
-					<strong>Start here -></strong> <g:textField class="searchBox" name="id" title="Search by Aperio or Autopsy ID..." value="Search by Aperio or Autopsy ID..." />
-				</div>
-			</g:form>
+		<g:if test="${flash.message}">
+			<div class="message" role="status">${flash.message}</div>
+		</g:if>
 
-			<div class="subjectListMain">
-				<g:link class="list" controller="aperioNun" action="list">View all Subjects</g:link>
-			</div>
-			<div>
-			<div id="canvas" ></div>
+       	<div class="title-bar">
+	       	<div class="title-bar-left">
+		       	<%--<h1 style="font-size:3.0em;padding:0;margin:0;">Slide Management</h1> --%>
+		       	<h1>Slide Management</h1>
+	       	</div>
+	       	<div class="title-bar-right">
+				<g:form name="searchForm" method="post" controller="nunId" action="find" >			
+					<g:textField class="mainSearchBox" name="id" title="Search by Aperio or Autopsy ID..." value="Search by Aperio or Autopsy ID..." /><g:submitButton class="mainSearchButton" name="Find" />
+				</g:form>
+	       	</div>       	
+       	</div>
+		<div id="page-body" role="main" class="intro">
+            <%-- <p>This application allows authenticated users to access and manage slide data associated with nun study participants.</p>--%>
+            
+            <%--<p>Note: To manage administrative data for the nun study, please visit the <a href="https://secure.healthstudies.umn.edu/nun-manage" title="Go to Nun Manage" target="_blank">Nun Manage Application</a>. To view or edit gross reports, microscopic findings or plaques and tangles, please visit the
+            <a href="https://secure.healthstudies.umn.edu/nun-brainlab" title="Go to Neuropathology" target="_blank">Neuropathology Application</a>. 
+            </p> --%>
 			
+			<%--<div id="infoMessage" class="message" role="status"></div> --%>
+			<div class="start">
+				
+				<%--<g:form name="searchForm" method="post" controller="nunId" action="find" >			
+					<div id="search">
+						<strong>Start here -></strong> <g:textField class="searchBox" name="id" title="Search by Aperio or Autopsy ID..." value="Search by Aperio or Autopsy ID..." />
+					</div>
+				</g:form> --%>
+	
+				<div class="subjectListMain">
+					<g:link class="list" controller="aperioNun" action="list">Subject List</g:link>
+				</div>
 			</div>
+			
 		</div>
 	</body>
 </html>

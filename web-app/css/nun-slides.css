@@ -2,12 +2,24 @@
 input {
 	border: 1px solid #aaa;
 }
+.intro {
+	background: transparent url(../images/skin/nunstudy-nun-circle-text.png) center center no-repeat;
+	min-height:50em;
+	height:50em;
+	clear:both;
+}
 .intro p {
 	font-size: 1.3em;
 }
 .subjectListMain {
-	font-size: 1.5em;
-	padding: 0.5em 0 4.0em 4.5em; 
+	padding: 2.5em 0 0 1.5em; 
+}
+.subjectListMain a {
+	font-size: 2.0em;
+	color:#7a001e;
+}
+.subjectListMain a:hover {
+	text-decoration: underline;
 }
 /* NAVIGATION MENU */
 
@@ -98,6 +110,70 @@ input {
 .navRight .searchButton {
 	width: 4.0em;
 }
+
+.title-bar {
+	background: url(../images/skin/title-bkgrd_10x50.png) center center repeat-x;	
+	width:100%;
+	height:4.5em;
+	min-height:4.5em;
+	float:left;
+}
+.title-bar h1{
+	font-size:3.0em;
+	padding: 0.4em 0 0 0.5em;
+	margin:0;
+	float: left;
+}
+
+.title-bar-left {
+	width:50%;
+	float:left;
+}
+.title-bar-right {
+	width:45%;
+	float:right;
+	text-align:right;
+	padding: 1.3em 1.0em 0 0;
+}
+.title-bar-right .mainSearchBox {
+	padding: 0 0.2em;
+	border-top-left-radius: 0.3em;
+	border-bottom-left-radius: 0.3em;
+	font-weight:normal;
+	font-size: 1.8em;
+	text-align:right;
+	color:#666;
+	width: 15.0em;
+}
+.title-bar-right .mainSearchBox:focus {
+	outline: none;	
+}
+
+.title-bar-right .mainSearchButton {
+	padding: 0 0.2em;
+	background-color: transparent;
+	overflow: hidden;
+	   -moz-box-shadow: 0 0 3px 1px #aaaaaa;
+	-webkit-box-shadow: 0 0 3px 1px #aaaaaa;
+	        box-shadow: 0 0 3px 1px #aaaaaa;
+	margin: 0.1em 0 0 0;
+	border: none;
+	border-top-right-radius: 0.3em;
+	border-bottom-right-radius: 0.3em;
+	font-weight:normal;
+	font-size: 1.8em;
+	text-align: middle;
+	color:#7a001e;
+	width: 4.0em;
+}
+.title-bar-right form {
+	margin-top: 0;
+	padding: 0;
+	height:0;
+}
+.title-bar-right .mainSearchButton:hover {
+	cursor: pointer;
+}
 /* BUTTONS */
 .buttons {
 	padding: 0.3em 0;
@@ -110,7 +186,7 @@ input {
 	font-size: 1.3em;
 }
 .searchBox {
-	margin-top: 0.2em;
+	margin-top: 0.1em;
 	padding: 0 0.2em;
 	-moz-border-radius: 0.3em;
 	-webkit-border-radius: 0.3em;
@@ -118,6 +194,7 @@ input {
 	font-weight:normal;
 	color:#666;
 	width: 15.0em;
+	font-size:1.2em;
 }
 /* SIGNED IN STATUS */
 .status {
