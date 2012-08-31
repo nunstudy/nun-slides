@@ -19,7 +19,7 @@ class Stain {
 
 	static belongsTo = [ block: Block ]
 
-	String toString() { type }
+	String toString() { type  ?: "Block:$block::ID:$id" }
 			
     static constraints = {
 		stainCode nullable: true

@@ -49,26 +49,29 @@ class StainController {
 	def save() {
 		def username = springSecurityService.principal.getUsername()
 		def blockInstance = Block.get(params.block.toLong())
-		params.block = blockInstance
-		params.userCreated = username
-		params.userUpdated = username
-		if (debug) {
-			println "Attempting to create new stain with params::$params"
+		if (blockInstance) {
+			params.block = blockInstance
+			params.userCreated = username
+			params.userUpdated = username
+			if (debug) {
+				println "Attempting to create new stain with params::$params"
+			}
+	
+			def stainInstance = new Stain(params)
+			
+			if (!stainInstance.save(flush: true)) {
+				return
+			}
+			if (stainInstance) {
+				blockInstance.addToStains(stainInstance)
+			}
+			
+			flash.message = "${stainInstance.toString().toUpperCase()} Stain created for Block: $blockInstance"
+			redirect(controller: "nunId", action: "edit", id: blockInstance.nun.id, params: [ openDiv: true, blockId: blockInstance.id ])	
+		} else {
+			flash.message = "Oops, block not found with id: ${params.block}."
+			redirect(controller:"mainMenu")			
 		}
-
-		def stainInstance = new Stain(params)
-		
-		if (!stainInstance.save(flush: true)) {
-			flash.message = message(code: 'default.created.message', args: [message(code: 'block.label', default: 'Stain'), stainInstance.id.toString()])
-			redirect(controller: "nunId", action: "edit", id: blockInstance?.nun.id)
-			return
-		}
-		if (stainInstance) {
-			blockInstance.addToStains(stainInstance)
-		}
-		
-		flash.message = "${stainInstance.toString().toUpperCase()} Stain created for Block: $blockInstance"
-		redirect(controller: "nunId", action: "edit", id: blockInstance.nun.id, params: [ openDiv: true, blockId: blockInstance.id ])
 	}
 		
 }

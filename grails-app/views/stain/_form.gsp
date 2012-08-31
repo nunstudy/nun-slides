@@ -7,7 +7,7 @@
 	<g:hiddenField name="id" value="${stainInstance.id}" />
 </g:if>
 <g:else>
-	<h3>Adding stain to Block: ${stainInstance.block}</h3>
+	<h3>Adding a new stain to Block: ${stainInstance.block}</h3>
 	<g:hiddenField name="block" value="${stainInstance.block.id}" />
 </g:else>
 

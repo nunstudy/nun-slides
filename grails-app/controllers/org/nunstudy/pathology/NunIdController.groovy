@@ -29,6 +29,7 @@ class NunIdController {
 				render(view: "edit", model: [nunIdInstance: nunIdInstance, blockId: params.blockId])
 				return				
 			}
+			if (debug) { println "Editing Nun ID::$nunIdInstance.id" }
             render(view: "edit", model: [nunIdInstance: nunIdInstance])
 			//redirect(action: "show", id: nunIdInstance.id)
 		}

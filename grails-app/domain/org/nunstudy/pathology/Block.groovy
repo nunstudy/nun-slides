@@ -60,6 +60,7 @@ class Block {
 		table 'blocks'
 		version false
 		id column:'BlockID', type: 'long', sqlType: 'int'
+		blockArea lazy: false
 
 		code column:'BlockCode', insertable: false, updateable: false
 		nun column:'NunID', type: 'long', sqlType: 'int'

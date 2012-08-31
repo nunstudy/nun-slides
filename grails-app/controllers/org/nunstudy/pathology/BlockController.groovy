@@ -7,7 +7,7 @@ import grails.plugins.springsecurity.Secured
 class BlockController {
 	def springSecurityService
 	def aperioService
-	def debug = true
+	def debug = false
 	
     static allowedMethods = [save: "POST", update: "POST", delete: "POST"]
 
