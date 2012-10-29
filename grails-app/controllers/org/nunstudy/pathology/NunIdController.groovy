@@ -54,22 +54,23 @@ class NunIdController {
 	
 	def createTemplate() {
 		def username = springSecurityService.principal.getUsername()
-		def nunIdInstance = NunId.read(params.id)
-		if (!nunIdInstance) {
-			flash.message = "Oops, sorry. A subject could not be found with id $params.id"
+		def nunIdInstance = NunId.get(params.id)
+		if (nunIdInstance) {
+            if (debug) {
+                println "Executing stored procedure"
+            }
+            Sql sql = new groovy.sql.Sql(dataSource)
+            sql.execute("EXEC dbo.mr_block_from_template @NunID = ${nunIdInstance.id}, @username = ${username}")
+            if (debug) {
+                println "Done executing stored procedure"
+            }
+            flash.message = "New block template created successfully!"
+            redirect(controller: "nunId", action: "find", id: nunIdInstance?.aperioId)
+        } else {
+            flash.message = "Oops, sorry. A subject could not be found with id $params.id"
 			redirect(controller:"mainMenu")			
 			return
 		}
-		if (debug) {
-			println "Executing stored procedure"
-		}
-		Sql sql = new groovy.sql.Sql(dataSource)
-		sql.execute("EXEC dbo.mr_block_from_template @NunID = ${nunIdInstance.id}, @username = ${username}") 
-		if (debug) {
-			println "Done executing stored procedure"
-		}
-		flash.message = "New block template created successfully!"
-		redirect(controller: "nunId", action: "find", id: nunIdInstance?.id)
 	}
 
 }
